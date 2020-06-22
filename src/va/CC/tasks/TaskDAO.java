@@ -27,4 +27,8 @@ public class TaskDAO {
         }
         return task;
     }
+
+    public void insertTask(TaskVO task) {
+        String sql = "";
+    }
 }

@@ -35,4 +35,11 @@ public class TaskManager {
             System.out.println("ID: " + task.getId() + " Name: " + task.getName());
         }
     }
+
+    public void addTask(){
+        String input = this.scanner.nextLine();
+        System.out.println("name of the new task:");
+        TaskVO taskVO = new TaskVO(, input);
+
+    }
 }
