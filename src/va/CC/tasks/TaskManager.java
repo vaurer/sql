@@ -15,14 +15,14 @@ public class TaskManager {
     public void readInput() {
         System.out.println("Welcome!");
         printAllTasks();
-        System.out.println("a for that, p for printing");
+        System.out.println("a for add new task, p for print all tasks");
         while (true) {
             System.out.println("enter the new command");
             String input = this.scanner.nextLine();
             if (input.equals("a")) {
-
+                addTask();
             }
-            if (input.equals("b")) {
+            else if (input.equals("p")) {
                 printAllTasks();
             }
 
@@ -36,10 +36,11 @@ public class TaskManager {
         }
     }
 
-    public void addTask(){
+    public void addTask() {
         String input = this.scanner.nextLine();
         System.out.println("name of the new task:");
-        TaskVO taskVO = new TaskVO(, input);
-
+        TaskVO taskVO = new TaskVO(0, input);
+        this.taskDAO.insertTask(taskVO);
+        printAllTasks();
     }
 }

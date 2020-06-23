@@ -29,6 +29,15 @@ public class TaskDAO {
     }
 
     public void insertTask(TaskVO task) {
-        String sql = "";
+        String sql = "insert into tasks (name) values ('" + task.getName() + "')";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+            connection.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
     }
 }
