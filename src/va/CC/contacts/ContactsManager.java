@@ -33,7 +33,7 @@ public class ContactsManager {
         }
     }
 
-    public void addNewContact() throws SQLException {
+    public void addNewContact() throws SQLException, ClassNotFoundException {
         System.out.println("Enter the name:");
         String name = this.scanner.nextLine();
         System.out.println("Enter the address:");
@@ -46,12 +46,7 @@ public class ContactsManager {
 
         ContactsVO contactsVO = new ContactsVO(0, name, address, phoneNumber, email);
         this.contactsDAO.insertNewContact(contactsVO);
-
-//        String input = this.scanner.nextLine();
-//        System.out.println("name of the new task:");
-//        TaskVO taskVO = new TaskVO(0, input);
-//        this.taskDAO.insertTask(taskVO);
-//        printAllTasks();
+        printAllContacts();
     }
 
 }
