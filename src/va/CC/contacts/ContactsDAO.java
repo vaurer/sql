@@ -28,4 +28,12 @@ public class ContactsDAO {
         }
         return contacts;
     }
+
+    public void insertNewContact(ContactsVO contactsVO) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+        Statement statement = connection.createStatement();
+        String query = "INSERT INTO `notizbuch`.`contacts` (`name`, `address`, `phonenumber`, `email`) VALUES ('" + contactsVO.getName() + "', '" + contactsVO.getAddress() + "', '" + contactsVO.getPhonenumber() + "', '" + contactsVO.getEmail() + "');";
+        statement.executeUpdate(query);
+        connection.close();
+    }
 }

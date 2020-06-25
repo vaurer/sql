@@ -7,5 +7,6 @@ public class ContactStarter {
         ContactsManager contactsManager = new ContactsManager();
         ContactsDAO contactsDAO = new ContactsDAO();
         contactsManager.printAllContacts();
+        contactsManager.addNewContact();
     }
 }

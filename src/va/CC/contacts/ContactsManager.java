@@ -33,17 +33,19 @@ public class ContactsManager {
         }
     }
 
-    public void addNewContact() {
+    public void addNewContact() throws SQLException {
         System.out.println("Enter the name:");
         String name = this.scanner.nextLine();
         System.out.println("Enter the address:");
         String address = this.scanner.nextLine();
         System.out.println("Enter the phone number:");
         int phoneNumber = this.scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Enter the email address:");
         String email = this.scanner.nextLine();
+
         ContactsVO contactsVO = new ContactsVO(0, name, address, phoneNumber, email);
-        //this.contactsDAO.insertTask();  //zu machen
+        this.contactsDAO.insertNewContact(contactsVO);
 
 //        String input = this.scanner.nextLine();
 //        System.out.println("name of the new task:");
