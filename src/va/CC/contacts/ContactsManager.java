@@ -1,5 +1,7 @@
 package va.CC.contacts;
 
+import va.CC.tasks.TaskVO;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -125,7 +127,6 @@ public class ContactsManager {
                         this.contactsDAO.editContactEmail(mail, id);
                         break;
                 }
-                printAllContacts();
                 printAllContacts();
                 break;
             case "NO":
