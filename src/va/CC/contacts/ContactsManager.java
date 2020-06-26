@@ -1,9 +1,6 @@
 package va.CC.contacts;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
@@ -96,8 +93,6 @@ public class ContactsManager {
         String query = null;
         switch (option) {
             case "YES":
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
-                Statement statement = connection.createStatement();
                 System.out.println("PRESS ID number of the contact you want to edit");
                 int id = scanner.nextInt();
                 scanner.nextLine();
@@ -112,27 +107,25 @@ public class ContactsManager {
                     case 1:
                         System.out.println("ENTER THE NAME?");
                         String name = scanner.nextLine();
-                        query = "UPDATE `contacts` SET `name`='" + name + "' WHERE contactID=" + id + ";";
+                        this.contactsDAO.editContactName(name, id);
                         break;
                     case 2:
                         System.out.println("ENTER THE STREET?");
                         String street = scanner.nextLine();
-                        query = "UPDATE `contacts` SET `address`='" + street + "' WHERE contactID=" + id + ";";
+                        this.contactsDAO.editContactAddress(street, id);
                         break;
                     case 3:
                         System.out.println("ENTER THE PHONE?");
                         Integer phone = scanner.nextInt();
-                        query = "UPDATE `contacts` SET `phonenumber`=" + phone + " WHERE contactID=" + id + ";";
+                        this.contactsDAO.editContactPhone(phone, id);
                         break;
                     case 4:
                         System.out.println("ENTER THE EMAIL?");
                         String mail = scanner.nextLine();
-                        query = "UPDATE `contacts` SET `email`='" + mail + "' WHERE contactID=" + id + ";";
+                        this.contactsDAO.editContactEmail(mail, id);
                         break;
                 }
-                statement.executeUpdate(query);
                 printAllContacts();
-                connection.close();
                 option();
                 break;
             case "NO":

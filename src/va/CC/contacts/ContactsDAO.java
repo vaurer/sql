@@ -44,4 +44,36 @@ public class ContactsDAO {
         statement.executeUpdate(query);
         connection.close();
     }
+
+    public void editContactName(String name, int id) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+        Statement statement = connection.createStatement();
+        String query = "UPDATE `contacts` SET `name`='" + name + "' WHERE contactID=" + id + ";";
+        statement.executeUpdate(query);
+        connection.close();
+    }
+
+    public void editContactAddress(String street, int id) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+        Statement statement = connection.createStatement();
+        String query = "UPDATE `contacts` SET `address`='" + street + "' WHERE contactID=" + id + ";";
+        statement.executeUpdate(query);
+        connection.close();
+    }
+
+    public void editContactPhone(int phone, int id) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+        Statement statement = connection.createStatement();
+        String query = "UPDATE `contacts` SET `phonenumber`=" + phone + " WHERE contactID=" + id + ";";
+        statement.executeUpdate(query);
+        connection.close();
+    }
+
+    public void editContactEmail(String mail, int id) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+        Statement statement = connection.createStatement();
+        String query = "UPDATE `contacts` SET `email`='" + mail + "' WHERE contactID=" + id + ";";
+        statement.executeUpdate(query);
+        connection.close();
+    }
 }
