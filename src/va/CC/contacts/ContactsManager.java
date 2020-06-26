@@ -15,43 +15,6 @@ public class ContactsManager {
         this.scanner = new Scanner(System.in);
         this.contactsDAO = new ContactsDAO();
     }
-
-    public void readInput() throws SQLException, ClassNotFoundException {
-        System.out.println("Welcone to your contact lists");
-        while (true) {
-            System.out.println("Please choose an option 1 to print all contacts");
-            int input = scanner.nextInt();
-            switch (input) {
-                case '1':
-                    printAllContacts();
-            }
-        }
-    }
-
-    public void printAllContacts() throws SQLException, ClassNotFoundException {
-        List<ContactsVO> contactsVOList = this.contactsDAO.getAllContacts();
-        for (ContactsVO contact : contactsVOList
-        ) {
-            System.out.println(contact.getContactID() + "\t " + contact.getName() + "\t " + contact.getAddress() + "\t" + contact.getPhonenumber() + " \t" + contact.getEmail());
-        }
-    }
-
-    public void addNewContact() throws SQLException, ClassNotFoundException {
-        System.out.println("Enter the name:");
-        String name = this.scanner.nextLine();
-        System.out.println("Enter the address:");
-        String address = this.scanner.nextLine();
-        System.out.println("Enter the phone number:");
-        int phoneNumber = this.scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter the email address:");
-        String email = this.scanner.nextLine();
-
-        ContactsVO contactsVO = new ContactsVO(0, name, address, phoneNumber, email);
-        this.contactsDAO.insertNewContact(contactsVO);
-        printAllContacts();
-    }
-
     public void option() throws SQLException, ClassNotFoundException {
         System.out.println();
         System.out.println("PLEASE CHOOSE AN OPTION");
@@ -82,6 +45,31 @@ public class ContactsManager {
         }
     }
 
+    public void printAllContacts() throws SQLException, ClassNotFoundException {
+        List<ContactsVO> contactsVOList = this.contactsDAO.getAllContacts();
+        for (ContactsVO contact : contactsVOList
+        ) {
+            System.out.println(contact.getContactID() + "\t " + contact.getName() + "\t " + contact.getAddress() + "\t" + contact.getPhonenumber() + " \t" + contact.getEmail());
+        }
+    }
+
+    public void addNewContact() throws SQLException, ClassNotFoundException {
+        System.out.println("Enter the name:");
+        String name = this.scanner.nextLine();
+        System.out.println("Enter the address:");
+        String address = this.scanner.nextLine();
+        System.out.println("Enter the phone number:");
+        int phoneNumber = this.scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Enter the email address:");
+        String email = this.scanner.nextLine();
+
+        ContactsVO contactsVO = new ContactsVO(0, name, address, phoneNumber, email);
+        this.contactsDAO.insertNewContact(contactsVO);
+        printAllContacts();
+    }
+
+
     public void deleteContact() throws SQLException, ClassNotFoundException {
         System.out.println();
         System.out.println("YOU WANT TO DELETE THE CONTACT PERMANENTLY? (YES/NO)");
@@ -89,13 +77,9 @@ public class ContactsManager {
         String option = scanner.nextLine();
         switch (option) {
             case "YES":
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
-                Statement statement = connection.createStatement();
                 System.out.println("PRESS ID number of the contact you want to delete");
                 int id = scanner.nextInt();
-                String query3 = "DELETE FROM contacts WHERE contactID=" + id + ";";
-                statement.executeUpdate(query3);
-                connection.close();
+                this.contactsDAO.deleteContact(id);
                 option();
                 break;
             case "NO":

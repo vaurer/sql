@@ -36,4 +36,12 @@ public class ContactsDAO {
         statement.executeUpdate(query);
         connection.close();
     }
+
+    public void deleteContact(int id) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/notizbuch?user=root");
+        Statement statement = connection.createStatement();
+        String query = "DELETE FROM contacts WHERE contactID=" + id + ";";
+        statement.executeUpdate(query);
+        connection.close();
+    }
 }
