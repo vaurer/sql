@@ -25,7 +25,6 @@ public class ContactsManager {
         switch (option) {
             case 1:
                 printAllContacts();
-                option();
                 break;
             case 2:
                 addNewContact();
@@ -48,6 +47,7 @@ public class ContactsManager {
         ) {
             System.out.println(contact.getContactID() + "\t " + contact.getName() + "\t " + contact.getAddress() + "\t" + contact.getPhonenumber() + " \t" + contact.getEmail());
         }
+        option();
     }
 
     public void addNewContact() throws SQLException, ClassNotFoundException {
@@ -126,7 +126,7 @@ public class ContactsManager {
                         break;
                 }
                 printAllContacts();
-                option();
+                printAllContacts();
                 break;
             case "NO":
                 option();
