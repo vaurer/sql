@@ -11,16 +11,9 @@ public class ConnectionManager {
     private ChatDAO chatDAO;
     private UserVO userVO;
     private MessageVO messageVO;
-    Timer timer = new Timer();
 
 
-    TimerTask update = new TimerTask() {
-        @Override
-        public void run() {
-            chatDAO.getExistingMessages();
-            timer.scheduleAtFixedRate(update, 0, 1000);
-        }
-    };
+
 
 
     public ConnectionManager() {
@@ -46,6 +39,16 @@ public class ConnectionManager {
     public void chat() throws SQLException, ClassNotFoundException {
         boolean isFinish=false;
         chatDAO.getExistingMessages();
+
+        Timer timer = new Timer();
+        TimerTask update = new TimerTask() {
+            @Override
+            public void run() {
+                chatDAO.getExistingMessages();
+            }
+        };
+        timer.scheduleAtFixedRate(update, 0, 5000);
+
         while (!isFinish){
 
             chatDAO.newMessage(scanner.nextLine(), userVO);

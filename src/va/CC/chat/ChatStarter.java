@@ -9,7 +9,7 @@ public class ChatStarter {
         ChatDAO chatDAO = new ChatDAO();
         UserVO userVO = connectionManager.logIn();
         connectionManager.chat();
-        connectionManager.update;
+
     }
 
 }
