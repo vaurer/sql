@@ -1,15 +1,14 @@
 package va.CC.chat;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ChatDAO {
     List<MessageVO> messageVOList = new ArrayList<>();
     List<UserVO> userList = new ArrayList<>();
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
 
     public List<UserVO> userList() throws SQLException {
         try {
@@ -89,6 +88,34 @@ public class ChatDAO {
         return messageVOList;
     }
 
+    public void getNewMessages() {
+
+        Timestamp temp = new Timestamp(System.currentTimeMillis());
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/chat?user=root");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from messagelist");
+
+            while (resultSet.next()) {
+
+                int messageID = resultSet.getInt(1);
+                String message = resultSet.getString(2);
+                int fk_userID = resultSet.getInt(3);
+                timestamp = resultSet.getTimestamp(4);
+                if (timestamp.compareTo(temp)>0){
+                    System.out.println("!!!!!!!!!!!");
+                }
+//                if (timestamp.after(temp)) {
+//                    System.out.println("ID: " + messageID + " -  " + message + " - USER ID: " + fk_userID + " " + timestamp);
+//                }
+            }
+            connection.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void newMessage(String text, UserVO userVO) throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -101,4 +128,5 @@ public class ChatDAO {
             e.printStackTrace();
         }
     }
+
 }

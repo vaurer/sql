@@ -1,6 +1,7 @@
 package va.CC.chat;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,8 +12,6 @@ public class ConnectionManager {
     private ChatDAO chatDAO;
     private UserVO userVO;
     private MessageVO messageVO;
-
-
 
 
 
@@ -39,19 +38,18 @@ public class ConnectionManager {
     public void chat() throws SQLException, ClassNotFoundException {
         boolean isFinish=false;
         chatDAO.getExistingMessages();
-
         Timer timer = new Timer();
-        TimerTask update = new TimerTask() {
-            @Override
-            public void run() {
-                chatDAO.getExistingMessages();
-            }
-        };
-        timer.scheduleAtFixedRate(update, 0, 5000);
+
 
         while (!isFinish){
-
             chatDAO.newMessage(scanner.nextLine(), userVO);
+            TimerTask update = new TimerTask() {
+                @Override
+                public void run() {
+                    chatDAO.getNewMessages();
+                }
+            };
+            timer.scheduleAtFixedRate(update, 0, 5000);
         }
 
 
