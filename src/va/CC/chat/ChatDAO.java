@@ -62,8 +62,11 @@ public class ChatDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/chat?user=root");
             Statement statement = connection.createStatement();
-            String query = "INSERT INTO `chat`.`userlist` (`name`) VALUES ('" + userVO.getName() + "');";
-            statement.execute(query);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `chat`.`userlist` (`name`) VALUES (?)");
+            //String query = "INSERT INTO `chat`.`userlist` (`name`) VALUES ('" + userVO.getName() + "');";
+            preparedStatement.setString(1, userVO.name);
+            //statement.execute(query);
+            preparedStatement.executeUpdate();
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
