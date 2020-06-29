@@ -10,6 +10,9 @@ public class ChatDAO {
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     Timestamp temp = null;
 
+    Date date=new Date(timestamp.getTime());
+    Time time = new Time(timestamp.getTime());
+
 
     public List<UserVO> userList() throws SQLException {
         try {
@@ -66,6 +69,9 @@ public class ChatDAO {
     }
 
     public List<MessageVO> getExistingMessages() {
+//        for (UserVO userVO : userList){
+//            System.out.println(userVO.name + " - " + userVO.userID );
+//        }
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/chat?user=root");
@@ -77,7 +83,7 @@ public class ChatDAO {
                 String message = resultSet.getString(2);
                 int fk_userID = resultSet.getInt(3);
                 timestamp = resultSet.getTimestamp(4);
-                System.out.println("ID: " + messageID + " -  " + message + " - USER ID: " + fk_userID + " " + timestamp);
+                System.out.println("ID: " + messageID + " -  " + message + " - USER: " + userList().get(fk_userID+1).name+ " " + this.date +" "+ this.time);
             }
             connection.close();
             temp = new Timestamp(System.currentTimeMillis());
@@ -105,7 +111,7 @@ public class ChatDAO {
                 timestamp = resultSet.getTimestamp(4);
 
                 if (timestamp.after(temp)) {
-                    System.out.println("ID: " + messageID + " -  " + message + " - USER ID: " + fk_userID + " " + timestamp);
+                    System.out.println("ID: " + messageID + " -  " + message + " - USER: " + userList().get(fk_userID+1).name + " "  + this.date +" "+ this.time);
                 }
             }
             connection.close();
