@@ -130,8 +130,12 @@ public class ChatDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/chat?user=root");
             Statement statement = connection.createStatement();
-            String query = "INSERT INTO `chat`.`messagelist` (`message`, `fk_userID`) VALUES ('" + text + "', '" + userVO.userID + "');";
-            statement.execute(query);
+            //String query = "INSERT INTO `chat`.`messagelist` (`message`, `fk_userID`) VALUES ('" + text + "', '" + userVO.userID + "');";
+            //statement.execute(query);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `chat`.`messagelist` (`message`, `fk_userID`) VALUES (?,?);");
+            preparedStatement.setString(1,text);
+            preparedStatement.setInt(2,userVO.userID);
+            preparedStatement.executeUpdate();
             connection.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
