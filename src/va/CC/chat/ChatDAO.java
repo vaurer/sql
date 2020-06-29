@@ -9,6 +9,7 @@ public class ChatDAO {
     List<UserVO> userList = new ArrayList<>();
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     Timestamp temp = null;
+    UserVO tempuser= null;
 
     Date date=new Date(timestamp.getTime());
     Time time = new Time(timestamp.getTime());
@@ -83,7 +84,7 @@ public class ChatDAO {
                 String message = resultSet.getString(2);
                 int fk_userID = resultSet.getInt(3);
                 timestamp = resultSet.getTimestamp(4);
-                System.out.println("ID: " + messageID + " -  " + message + " - USER: " + userList().get(fk_userID+1).name+ " " + this.date +" "+ this.time);
+                System.out.println("Message no: " + messageID + " -  " + message + " - USER: " + userList().get(fk_userID).getName() + userList.get(fk_userID).getUserID() + " ; Posted on " + this.date +" ; "+ this.time);
             }
             connection.close();
             temp = new Timestamp(System.currentTimeMillis());
@@ -111,7 +112,7 @@ public class ChatDAO {
                 timestamp = resultSet.getTimestamp(4);
 
                 if (timestamp.after(temp)) {
-                    System.out.println("ID: " + messageID + " -  " + message + " - USER: " + userList().get(fk_userID+1).name + " "  + this.date +" "+ this.time);
+                    System.out.println("Message no: " + messageID + " -  " + message + " - USER: " + userList().get(fk_userID).getName() + userList.get(fk_userID).getUserID() + " ; Posted on " + this.date +" ; "+ this.time);
                 }
             }
             connection.close();
